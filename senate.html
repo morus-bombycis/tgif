@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
+    <title>Congress 133: Senate</title>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
+    <img class="logo" src="logo.png">
+    <a class="navbar-brand" href="home.html">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+        <li class="nav-item active">
+            <a class="nav-link" href="about.html">About Us</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Congress 113</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="house.html">House of Representatives</a>
+                <a class="dropdown-item" href="senate.html">Senate</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Attendance</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="house-attendance.html">House of Representatives</a>
+                <a class="dropdown-item" href="senate-attendance.html">Senate</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Loyalty</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="house-loyalty.html">House of Representatives</a>
+                <a class="dropdown-item" href="senate-loyalty.html">Senate</a>
+            </div>
+        </li>
+        </ul>
+    </div>
+    <a href="mailto:info@tgif.net"><img class="envelope" src="email.png">info@tgif.net</a>
+</nav>
+<!--Main Contents-->
+
+<div class="container-md">
+    <h2>Senators</h2>
+    <p>hi</p>
+    <p>First convened in 1789, the composition and powers of the Senate are established in Article One of the U.S. Constitution. Each state is represented by two senators, regardless of population, who serve staggered six-year terms. The Senate has several exclusive powers not granted to the House, including consenting to treaties as a precondition to their ratification and consenting to or confirming appointments of Cabinet secretaries, federal judges, other federal executive officials, military officers, regulatory officials, ambassadors, and other federal uniformed officers, as well as trial of federal officials impeached by the House.</p>
+    Filter by Party: 
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="R" value="R">
+        <label class="form-check-label" for="inlineCheckbox1">Republican</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="D" value="D">
+        <label class="form-check-label" for="inlineCheckbox2">Democrat</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="I" value="I">
+        <label class="form-check-label" for="inlineCheckbox3">Independent</label>
+    </div>
+    <div class="state-dropdown">
+    <label for="state">State: </label>
+    <select id="state">
+      
+        <!-- <option name="state" id="AL">Alabama</option>
+        <option value="AK" name="state" id="AK">Alaska</option>
+        <option name="state" id="AZ">Arizona</option>
+        <option name="state" id="AR">Arkansas</option>
+        <option name="state" id="CA">California</option>
+        <option name="state" id="CO">Colorado</option>
+        <option name="state" id="CT">Connecticut</option>
+        <option name="state" id="DE">Delaware</option>
+        <option name="state" id="FL">Florida</option>
+        <option name="state" id="GA">Georgia</option>
+        <option name="state" id="HI">Hawaii</option>
+        <option name="state" id="ID">Idaho</option>
+        <option name="state" id="IL">Illinois</option>
+        <option name="state" id="IN">Indiana</option>
+        <option name="state" id="IA">Iowa</option>
+        <option name="state" id="KS">Kansas</option>
+        <option name="state" id="KY">Kentucky</option>
+        <option name="state" id="LA">Louisiana</option>
+        <option name="state" id="ME">Maine</option>
+        <option name="state" id="MD">Maryland</option>
+        <option name="state" id="MA">Massachusetts</option>
+        <option name="state" id="MI">Michigan</option>
+        <option name="state" id="MN">Minnesota</option>
+        <option name="state" id="MS">Mississippi</option>
+        <option name="state" id="MO">Missouri</option>
+        <option name="state" id="MT">Montana</option>
+        <option name="state" id="NE">Nebraska</option>
+        <option name="state" id="NV">Nevada</option>
+        <option name="state" id="NH">New Hampshire</option>
+        <option name="state" id="NJ">New Jersey</option>
+        <option name="state" id="NM">New Mexico</option>
+        <option name="state" id="NY">New York</option>
+        <option name="state" id="NC">North Carolina</option>
+        <option name="state" id="ND">North Dakota</option>
+        <option name="state" id="OH">Ohio</option>
+        <option name="state" id="OK">Oklahoma</option>
+        <option name="state" id="OR">Oregon</option>
+        <option name="state" id="PA">Pennsylvania</option>
+        <option name="state" id="RI">Rhode Island</option>
+        <option name="state" id="SC">South Carolina</option>
+        <option name="state" id="SD">South Dakota</option>
+        <option name="state" id="TN">Tennessee</option>
+        <option name="state" id="TX">Texas</option>
+        <option name="state" id="UT">Utah</option>
+        <option name="state" id="VT">Vermont</option>
+        <option name="state" id="VA">Virginia</option>
+        <option name="state" id="WA">Washington</option>
+        <option name="state" id="WV">West Virginia</option>
+        <option name="state" id="WI">Wisconsin</option>
+        <option name="state" id="WY">Wyoming</option>
+        <option name="state" id="DC">Washington DC</option> -->
+    </select>
+    </div>
+    <table id="senate-data" class="table"></table>
+</div>
+<!-- Footer -->
+<footer class="page-footer font-small blue fixed-bottom">
+<div class="footer-copyright text-center py-3">© 2020 All Rights Reserved
+    <a href="https://www.whitehouse.gov/the_press_office/TransparencyandOpenGovernment"> Transparency and Open Government</a>
+</div>
+</footer>
+<!-- JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="pro-congress-113-senate.js"></script>
+<script src='main.js'></script>
+<script src="underscore.js"></script>
+</body>
+</html>

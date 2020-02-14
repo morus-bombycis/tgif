@@ -1,0 +1,66 @@
+.logo{
+    padding-right: 50px;
+}
+
+.envelope{
+    padding-right: 15px;
+}
+
+.container-md{
+    padding: 50px;
+    margin-top: 50px;
+}
+
+.container-1{
+    display: flex;
+    padding: 50px;
+    /* margin-top: 50px; */
+}
+
+.accordion {
+    padding: 50px;
+}
+
+
+footer{
+    background-color: grey;
+}
+
+.table{
+    width: 1050px;
+    border: 1px solid gray;
+    padding: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#house-least-loyal,
+#house-most-loyal,
+#senate-least-loyal,
+#senate-most-loyal,
+#house-least-engaged, 
+#house-most-engaged,
+#senate-least-engaged, 
+#senate-most-engaged{
+    width: 480px;
+}
+
+#house-at-a-glance,
+#senate-at-a-glance {
+    width: 380px;
+}
+
+#more {
+    display: none;
+}
+
+.container-2{
+    display: flex;
+    align-content: center;
+    justify-content: space-evenly;
+    margin-bottom: 80px;
+}
+
+.box-1{
+    margin-right: 20px;
+}
