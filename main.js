@@ -1,5 +1,5 @@
 //-----Data source
-const members = data.results[0].members;
+var members = [];
 
 //-----Congress 133 Page: Senators" & "House of Represantatives
 const createTableCategories = (id) => {
@@ -372,15 +372,15 @@ if(document.title == "House of Representatives: Party Loyalty"){
 
 //******Checkbox Filters
 //Syntax: target.addEventListener(type, listener [, options]);
-document.getElementById("R").addEventListener("click", function () { 
+document.getElementById("R").addEventListener("change", function () { 
     filter()
     //renderTable() 
 });
-document.getElementById("D").addEventListener("click", function () { 
+document.getElementById("D").addEventListener("change", function () { 
     filter()
     //renderTable() 
 });
-document.getElementById("I").addEventListener("click", function () { 
+document.getElementById("I").addEventListener("change", function () { 
     filter()
     //renderTable() 
 });
@@ -449,193 +449,101 @@ function renderTable(members) {
             row.appendChild(td3)
             row.appendChild(td4)
             tbody.appendChild(row)
-        //If not, display the following table which includes all the items
-        //"=== 0" in this case specfies that nothing is checked
-        // }else if(checkedChexboxes.length === 0){
-            // var row = document.createElement("tr")
-            // var td = document.createElement("td")
-            // var td1 = document.createElement("td")
-            // var td2 = document.createElement("td")
-            // var td3 = document.createElement("td")
-            // var td4 = document.createElement("td")
-            // td.innerHTML = members[i].first_name + " " + members[i].last_name
-            // td1.innerHTML = members[i].party
-            // td2.innerHTML = members[i].state
-            // td3.innerHTML = members[i].seniority
-            // td4.innerHTML = members[i].votes_with_party_pct
-            // row.appendChild(td)
-            // row.appendChild(td1)
-            // row.appendChild(td2)
-            // row.appendChild(td3)
-            // row.appendChild(td4)
-            // tbody.appendChild(row)
-        // }
     }
 }
 
-renderTable(members)
+// renderTable(members)
 
 //*****Drodown Menu Filter
-
 function getDropdownValue() {
     var selectedState = document.getElementById("state").value
     return selectedState
 }
 
-let state = []
-
-for (i=0; i < members.length; i++){
-state.push(members[i].state)
-}
-
-//If the elementOfTheArray is not(!) included in the newArrayWithoutDuplictes, put it in
-function removeDuplicate(stateParameter) {
-    let newArrayWithoutDuplicates = []
-    stateParameter.map(elementOfTheArray => {
-        if(!newArrayWithoutDuplicates.includes(elementOfTheArray)){
-            newArrayWithoutDuplicates.push(elementOfTheArray)
-        }
-    })
-    return newArrayWithoutDuplicates
-}
-
-var newStateArray = removeDuplicate(state)
-var newStateArraySorted = newStateArray.sort()
-
-// function renderTableStates() {
-//     let id = 0
-//     if(document.title.includes("House")){
-//         id="house-data"
-//     }else{
-//         id="senate-data"
-//     }
-//     //Grab the existing table in html whose ID is specified below
-//     var tbody = document.getElementById(id)
-//     tbody.innerHTML = ""
-//     var dropdownSelection = document.getElementById("state")
-//     dropdownSelection.innerHTML = ""
-//     //Create the following components of the table
-//     const tblHead = document.createElement('thead')
-//     tblHead.classList = "thead-dark"
-//     var th = document.createElement("th")
-//     var th1 = document.createElement("th")
-//     var th2 = document.createElement("th")
-//     var th3 = document.createElement("th")
-//     var th4 = document.createElement("th")
-//     //Attach together the components created above
-//     tbody.appendChild(tblHead)
-//     tblHead.appendChild(th)
-//     tblHead.appendChild(th1)
-//     tblHead.appendChild(th2)
-//     tblHead.appendChild(th3)
-//     tblHead.appendChild(th4)
-//     //Fill the table head with the following nodes
-//     th.innerHTML = "Name"
-//     th1.innerHTML = "Party"
-//     th2.innerHTML = "State"
-//     th3.innerHTML = "Seniority"
-//     th4.innerHTML = "% of Votes w/ Party"
-
-//     for (var i = 0; i < members.length; i++) {
-//         //When an option is selected, display the following table which includes relevant items
-//         if (members[i].state === selectedState){
-//             var row = document.createElement("tr")
-//             var td = document.createElement("td")
-//             var td1 = document.createElement("td")
-//             var td2 = document.createElement("td")
-//             var td3 = document.createElement("td")
-//             var td4 = document.createElement("td")
-//             td.innerHTML = members[i].first_name + " " + members[i].last_name
-//             td1.innerHTML = members[i].party
-//             td2.innerHTML = members[i].state
-//             td3.innerHTML = members[i].seniority
-//             td4.innerHTML = members[i].votes_with_party_pct
-//             row.appendChild(td)
-//             row.appendChild(td1)
-//             row.appendChild(td2)
-//             row.appendChild(td3)
-//             row.appendChild(td4)
-//             tbody.appendChild(row)
-//         //If not, display the following table which includes all the items
-//         //"=== 0" in this case specfies that nothing is checked
-//         }else if(dropdownSelection.length === 0){
-//             var row = document.createElement("tr")
-//             var td = document.createElement("td")
-//             var td1 = document.createElement("td")
-//             var td2 = document.createElement("td")
-//             var td3 = document.createElement("td")
-//             var td4 = document.createElement("td")
-//             td.innerHTML = members[i].first_name + " " + members[i].last_name
-//             td1.innerHTML = members[i].party
-//             td2.innerHTML = members[i].state
-//             td3.innerHTML = members[i].seniority
-//             td4.innerHTML = members[i].votes_with_party_pct
-//             row.appendChild(td)
-//             row.appendChild(td1)
-//             row.appendChild(td2)
-//             row.appendChild(td3)
-//             row.appendChild(td4)
-//             tbody.appendChild(row)
-//         }
-//     }
-// }
-
-// renderTableStates()
-
-function statefilter(){
-
+function updateStateFilter(states){
     var dropdown = document.getElementById("state")
     var optionAll = document.createElement("option")
-    optionAll.value = "All"
-    optionAll.innerHTML = "All"
+    optionAll.value = "All";
+    optionAll.innerHTML = "All";
     dropdown.appendChild(optionAll)
-    newStateArraySorted.forEach(stateInThatArray => {
-
-    var options = document.createElement("option")
-    options.innerHTML = stateInThatArray
-    options.value=stateInThatArray
-    dropdown.appendChild(options)
+    states.forEach(state => {
+        var options = document.createElement("option")
+        options.innerHTML = state;
+        options.value = state;
+        dropdown.appendChild(options)
     });
 
     document.getElementById("state").addEventListener("change", function () {
-    // var select =     document.getElementById("state")
-    // var stateSelected = select.options[select.selectedIndex].text;
-    // renderTableStates()
-    // console.log(stateSelected)
-    // selectedState = stateSelected
-    filter()
+        filter()
     })
 }
 
-var selectedState = ""
-statefilter()
+var selectedState = "";
 
 function filter(){
     let parties = getCheckboxesValue()
     let state = getDropdownValue()
-    let filteredMembers = []
-    if(parties.length === 0 && state === "All"){
-        filteredMembers = members;
-    }else if(parties.length !== 0 && state === "All"){
-        for(let i = 0; i < members.length; i++){
-            if(parties.includes(members[i].party)){
-                filteredMembers.push(members[i])
-            }
-        }
-    }else if(parties.length === 0 && state !== "All"){
-        for(let i = 0; i < members.length; i++){
-            if(state.includes(members[i].state)){
-                filteredMembers.push(members[i])
-            }
-        }
-    }else{let temporaryArray=[]
-        //loops through the members, filters out or keeps the members depending on the match
-        temporaryArray=members.filter(member=>member.state===state)
-        parties.forEach(party=>{
-        let temporaryArray1=[]
-        temporaryArray1.push(temporaryArray.filter(member=>member.party===party))
-        filteredMembers.push(temporaryArray1[0][0]);
-    })
+    let filteredMembers = members
+
+    if(state !== "All"){
+        filteredMembers = filteredMembers.filter(member => member.state === state)
     }
+
+    if(parties.length > 0){
+        filteredMembers = filteredMembers.filter(member => parties.includes(member.party))
+    }
+
+
+
+    
+    // if(parties.length === 0 && state === "All"){
+    //     filteredMembers = members;
+    // }else if(parties.length !== 0 && state === "All"){
+    //     for(let i = 0; i < members.length; i++){
+    //         if(parties.includes(members[i].party)){
+    //             filteredMembers.push(members[i])
+    //         }
+    //     }
+    // }else if(parties.length === 0 && state !== "All"){
+    //     for(let i = 0; i < members.length; i++){
+    //         if(state.includes(members[i].state)){
+    //             filteredMembers.push(members[i])
+    //         }
+    //     }
+    // }else{let temporaryArray=[]
+    //     //loops through the members, filters out or keeps the members depending on the match
+    //     temporaryArray=members.filter(member=>member.state===state)
+    //     parties.forEach(party=>{
+    //     let temporaryArray1=[]
+    //     temporaryArray1.push(temporaryArray.filter(member=>member.party===party))
+    //     filteredMembers.push(temporaryArray1[0][0]);
+    // })
+    // }
     renderTable(filteredMembers)
 }
+
+//Function to retrieve the list of house members
+//Returns the Json object with the server response
+function fetchUserData(){
+    return fetch('https://api.propublica.org/congress/v1/116/house/members.json',{
+      method: "GET",
+      headers: {
+        "X-API-Key": "rpNCuXoYOkPWov7EdSX7RpORSbKWNcVBHELvbvpQ"
+      }
+    })
+      .then((response) => response.json())
+  }
+
+//Call the fetch function from above
+fetchUserData().then(data => {
+    members = data.results[0].members
+    //Render the table of the members
+    renderTable(members)
+
+    //Generate the state list and update the dropdown filter
+    var states = members.map(member => member.state)
+    var uniqueStates = states.filter((state, index) => states.indexOf(state) === index)
+    uniqueStates.sort()
+
+    updateStateFilter(uniqueStates)
+})
