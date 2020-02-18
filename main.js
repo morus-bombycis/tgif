@@ -1,65 +1,5 @@
-//-----Data source
-var members = [];
-
-//-----Congress 133 Page: Senators" & "House of Represantatives
-const createTableCategories = (id) => {
-  const categories = ["Full Name", "Party", "State", "Seniority", "% of Votes w/ Party"];
-  //Specifies where the output is returned to
-  const tbl = document.getElementById(id);
-  //Orders said HTML elements to be created
-  const tblHead = document.createElement('thead');
-  tblHead.classList = "thead-dark"
-  const tblBody = document.createElement('tbody');
-  //Create the table head as well as the texts inside for all the categories in the abstract array
-  for (i in categories) {
-    const tblHeadRow = document.createElement('th');
-    const tblHeadText = document.createTextNode(categories[i]);
-    //Table head text node to be attached to the table head row; table head row to the table head
-    tblHeadRow.appendChild(tblHeadText);
-    tblHead.appendChild(tblHeadRow);
-  }
-  //Attach the table body to the table head created above
-  tbl.appendChild(tblHead);
-  tbl.appendChild(tblBody);
-
-  for (j in members) {
-    //Create the rows as well as the cells
-    const tblDataRow = document.createElement('tr');
-    const tblDataCellName = document.createElement('td');
-    const tblDataCellParty = document.createElement('td');
-    const tblDataCellState = document.createElement('td');
-    const tblDataCellSeniority = document.createElement('td');
-    const tblDataCellVotes = document.createElement('td');
-    //Cause the actual data to fit into said cells as text nodes
-    const tblCellTextName = document.createTextNode(members[j].first_name + " " + members[j].last_name)
-    const tblCellTextParty = document.createTextNode(members[j].party);
-    const tblCellTextState = document.createTextNode(members[j].state);
-    const tblCellTextSeniority = document.createTextNode(members[j].seniority);
-    const tblCellTextVotes = document.createTextNode(members[j].votes_with_party_pct);
-    //All the cells with the data inside to be attached to the corresponding rows
-    tblDataCellName.appendChild(tblCellTextName);
-    tblDataCellParty.appendChild(tblCellTextParty);
-    tblDataCellState.appendChild(tblCellTextState);
-    tblDataCellSeniority.appendChild(tblCellTextSeniority);
-    tblDataCellVotes.appendChild(tblCellTextVotes);
-    tblDataRow.appendChild(tblDataCellName)
-    tblDataRow.appendChild(tblDataCellParty)
-    tblDataRow.appendChild(tblDataCellState)
-    tblDataRow.appendChild(tblDataCellSeniority)
-    tblDataRow.appendChild(tblDataCellVotes)
-    tblBody.appendChild(tblDataRow)
-  }
-}
-
-//Call the function for Senate and House respectively
-if(document.title == "Congress 133: Senate") {
-    createTableCategories("senate-data")
-}else if(document.title == "Congress 133: House of Representatives"){
-    createTableCategories("house-data")
-}
-
 //-----House / Senate at a Glance
-const voteWithParty = (location_by_id) => {
+const voteWithParty = (location_by_id, members) => {
 
     const voteWithPartyCategories = ["Party", "No. of Reps", "% Voted w/ Party"]
 
@@ -85,6 +25,7 @@ const voteWithParty = (location_by_id) => {
             "vote": 0}
     }
 
+    //Add up all the members from each party
     for(var i = 0; i < members.length; i++){
         vote.total.count++;
         if(members[i].party == "R"){
@@ -96,6 +37,7 @@ const voteWithParty = (location_by_id) => {
         }
     }
 
+    //Add up the percentage of the members of each party voting with the party
     for(var i = 0; i < members.length; i++){
         vote.total.vote += members[i].votes_with_party_pct;
         if(members[i].party == "R"){
@@ -107,6 +49,7 @@ const voteWithParty = (location_by_id) => {
         }
     }
 
+    //Render the tables
     const votesTbl = document.getElementById(location_by_id)
     const tblHead = document.createElement('thead');
     tblHead.classList = "thead-dark"
@@ -128,6 +71,7 @@ const voteWithParty = (location_by_id) => {
         const tblDataCellVotedWithParty = document.createElement('td');
         const tblCellTextParty = document.createTextNode(vote[j].party)
         const tblCellTextNoOfReps = document.createTextNode(vote[j].count);
+        //Calculate the average and round it up to the 2nd decimal place
         const tblCellTextVotedWithParty = document.createTextNode(Math.floor((vote[j].vote/vote[j].count)*100)/100);
         tblDataCellParty.appendChild(tblCellTextParty)
         tblDataCellNoOfReps.appendChild(tblCellTextNoOfReps)
@@ -139,28 +83,21 @@ const voteWithParty = (location_by_id) => {
     }
 }
 
-if(document.title == "Senate Attendance"){
-    voteWithParty("senate-at-a-glance")
-}if(document.title == "Senate: Party Loyalty"){
-    voteWithParty("senate-at-a-glance")
-}else if(document.title == "House Attendance"){
-    voteWithParty("house-at-a-glance")
-}else if(document.title == "House of Representatives: Party Loyalty"){
-    voteWithParty("house-at-a-glance")
-}
-
 //-----Least Engaged (Bottom 10%)
-const leastEngaged = (location_by_id) => {
+const leastEngaged = (location_by_id, members) => {
 
     const tenCategories = ["Missed Votes %", "Full Name", "Party", "State"]
 
+    //Sort the list from the lowest to the highest
     var worstTen = members.sort(function(a, b) {
         return b.missed_votes_pct - a.missed_votes_pct;
     });
 
+    //Round up the list to the bottom 10%
     var tenPercent = Math.floor(worstTen.length*0.1);
     var worstTenPercent = worstTen.slice(0, tenPercent);
 
+    //Render the table
     const votesTbl = document.getElementById(location_by_id)
     const tblHead = document.createElement('thead');
     tblHead.classList = "thead-dark"
@@ -197,25 +134,24 @@ const leastEngaged = (location_by_id) => {
     }
 }
 
-if(document.title == "Senate Attendance"){
-    leastEngaged("senate-least-engaged")
-}else if(document.title == "House Attendance"){
-    leastEngaged("house-least-engaged")
-}
-
 //-----Most Engaged (Top 10%)
-const topTenAttendance = (location_by_id) => {
+const topTenAttendance = (location_by_id, members) => {
 
     const tenCategories = ["Missed Votes %", "Full Name", "Party", "State"]
 
+    //Sort the list from the highest to the lowest
     var bestTen = members.sort(function(a, b) {
         return a.missed_votes_pct - b.missed_votes_pct;
     });
     
+    //Round up the list to the top 10%
     var tenPercent = Math.floor(bestTen.length*0.1);
     var topTenPercent = bestTen.slice(0, tenPercent);
 
+    //Render the table
+    //Specifies where the output is returned to
     const votesTbl = document.getElementById(location_by_id)
+    //Orders said HTML elements to be created
     const tblHead = document.createElement('thead');
     tblHead.classList = "thead-dark"
     const tblBody = document.createElement('tbody');
@@ -251,20 +187,16 @@ const topTenAttendance = (location_by_id) => {
     }
 }
 
-if(document.title == "Senate Attendance"){
-    topTenAttendance("senate-most-engaged")
-}else if(document.title == "House Attendance"){
-    topTenAttendance("house-most-engaged")
-}
-
 //-----Least Loyal (Bottom 10%)
-const leastLoyalTableCategory = (id) => {
+const leastLoyalTableCategory = (id, members) => {
     const categories = ["Name", "No. Party Votes", "% Party Votes"];
 
+    //Sort the list from the lowest to the highest
     var worstTen = members.sort(function(a, b) {
         return b.votes_with_party_pct - a.votes_with_party_pct;
     });
 
+    //Round up the list to the bottom 10%
     var tenPercent = Math.floor(worstTen.length*0.1);
     var worstTenPercent = worstTen.slice(0, tenPercent);
 
@@ -307,14 +239,8 @@ for (j in worstTenPercent) {
     }
 }
 
-if(document.title == "House of Representatives: Party Loyalty"){
-    leastLoyalTableCategory("house-least-loyal")
-}else if(document.title == "Senate: Party Loyalty"){
-    leastLoyalTableCategory("senate-least-loyal")
-}
-
 //-----Most Loyal (Top 10%)
-const mostLoyalTableCategory = (id) => {
+const mostLoyalTableCategory = (id, members) => {
     const categories = ["Name", "No. Party Votes", "% Party Votes"];
 
     var topTen = members.sort(function(a, b) {
@@ -363,27 +289,18 @@ for (j in topTenPercent) {
     }
 }
 
-if(document.title == "House of Representatives: Party Loyalty"){
-    mostLoyalTableCategory("house-most-loyal")
-}else if(document.title == "Senate: Party Loyalty"){
-    mostLoyalTableCategory("senate-most-loyal")
-}
-
-
 //******Checkbox Filters
-//Syntax: target.addEventListener(type, listener [, options]);
+if(document.title.includes("Congress")){
+//The following events occur when changes are added to the specified elements
 document.getElementById("R").addEventListener("change", function () { 
     filter()
-    //renderTable() 
 });
 document.getElementById("D").addEventListener("change", function () { 
     filter()
-    //renderTable() 
 });
 document.getElementById("I").addEventListener("change", function () { 
     filter()
-    //renderTable() 
-});
+});}
 
 function getCheckboxesValue() {
     var checkboxes = []
@@ -406,7 +323,6 @@ function renderTable(members) {
     //Grab the existing table in html whose ID is specified below
     var tbody = document.getElementById(id)
     tbody.innerHTML = " "
-    var checkedChexboxes = getCheckboxesValue()
     //Create the following components of the table
     const tblHead = document.createElement('thead')
     tblHead.classList = "thead-dark"
@@ -452,9 +368,8 @@ function renderTable(members) {
     }
 }
 
-// renderTable(members)
-
 //*****Drodown Menu Filter
+//Specifies which HTML element the filter function below calls
 function getDropdownValue() {
     var selectedState = document.getElementById("state").value
     return selectedState
@@ -463,9 +378,11 @@ function getDropdownValue() {
 function updateStateFilter(states){
     var dropdown = document.getElementById("state")
     var optionAll = document.createElement("option")
+    //When "All" is selected, members of all states are generated accordingly
     optionAll.value = "All";
     optionAll.innerHTML = "All";
     dropdown.appendChild(optionAll)
+    //When a certain state is selected, the value "state" responds as an option
     states.forEach(state => {
         var options = document.createElement("option")
         options.innerHTML = state;
@@ -473,77 +390,106 @@ function updateStateFilter(states){
         dropdown.appendChild(options)
     });
 
+    //When a change is added, the following function is called
     document.getElementById("state").addEventListener("change", function () {
         filter()
     })
 }
-
-var selectedState = "";
 
 function filter(){
     let parties = getCheckboxesValue()
     let state = getDropdownValue()
     let filteredMembers = members
 
+    //If a certain state is selected (not "All"), filter the members accordingly
     if(state !== "All"){
         filteredMembers = filteredMembers.filter(member => member.state === state)
     }
+    console.log(filteredMembers)
 
+    //If a certain party / parties are selected (more than 0), filter the members accordingly
     if(parties.length > 0){
         filteredMembers = filteredMembers.filter(member => parties.includes(member.party))
     }
+    console.log(filteredMembers)
 
-
-
-    
-    // if(parties.length === 0 && state === "All"){
-    //     filteredMembers = members;
-    // }else if(parties.length !== 0 && state === "All"){
-    //     for(let i = 0; i < members.length; i++){
-    //         if(parties.includes(members[i].party)){
-    //             filteredMembers.push(members[i])
-    //         }
-    //     }
-    // }else if(parties.length === 0 && state !== "All"){
-    //     for(let i = 0; i < members.length; i++){
-    //         if(state.includes(members[i].state)){
-    //             filteredMembers.push(members[i])
-    //         }
-    //     }
-    // }else{let temporaryArray=[]
-    //     //loops through the members, filters out or keeps the members depending on the match
-    //     temporaryArray=members.filter(member=>member.state===state)
-    //     parties.forEach(party=>{
-    //     let temporaryArray1=[]
-    //     temporaryArray1.push(temporaryArray.filter(member=>member.party===party))
-    //     filteredMembers.push(temporaryArray1[0][0]);
-    // })
-    // }
     renderTable(filteredMembers)
 }
 
-//Function to retrieve the list of house members
-//Returns the Json object with the server response
+//Retrieve the list of the members and return the Json object with the server response
 function fetchUserData(){
-    return fetch('https://api.propublica.org/congress/v1/116/house/members.json',{
+    if(document.title.includes("House")){
+    return fetch('https://api.propublica.org/congress/v1/113/house/members.json',{
       method: "GET",
       headers: {
         "X-API-Key": "rpNCuXoYOkPWov7EdSX7RpORSbKWNcVBHELvbvpQ"
       }
     })
       .then((response) => response.json())
-  }
+    }else if(document.title.includes("Senate")){
+        return fetch('https://api.propublica.org/congress/v1/113/senate/members.json',{
+      method: "GET",
+      headers: {
+        "X-API-Key": "rpNCuXoYOkPWov7EdSX7RpORSbKWNcVBHELvbvpQ"
+      }
+    })
+      .then((response) => response.json())
+    }
+}
 
+if(document.title.includes("Congress")){
 //Call the fetch function from above
 fetchUserData().then(data => {
     members = data.results[0].members
     //Render the table of the members
     renderTable(members)
+    
 
-    //Generate the state list and update the dropdown filter
+    //Generate the state list and update the dropdown filter by canceling the duplicates and sorting alphabetically
     var states = members.map(member => member.state)
     var uniqueStates = states.filter((state, index) => states.indexOf(state) === index)
     uniqueStates.sort()
 
     updateStateFilter(uniqueStates)
+
+    
+})}else{
+
+    //Render the tables for all the other pages
+fetchUserData().then(data => {
+    members = data.results[0].members
+    if(document.title == "Senate Attendance"){
+        topTenAttendance("senate-most-engaged", members)
+    }else if(document.title == "House Attendance"){
+        topTenAttendance("house-most-engaged", members)
+    }
+    
+    if(document.title == "House of Representatives: Party Loyalty"){
+        mostLoyalTableCategory("house-most-loyal", members)
+    }else if(document.title == "Senate: Party Loyalty"){
+        mostLoyalTableCategory("senate-most-loyal", members)
+    }
+    
+    if(document.title == "House of Representatives: Party Loyalty"){
+        leastLoyalTableCategory("house-least-loyal", members)
+    }else if(document.title == "Senate: Party Loyalty"){
+        leastLoyalTableCategory("senate-least-loyal", members)
+    }
+    
+    if(document.title == "Senate Attendance"){
+        leastEngaged("senate-least-engaged", members)
+    }else if(document.title == "House Attendance"){
+        leastEngaged("house-least-engaged", members)
+    }
+    
+    if(document.title == "Senate Attendance"){
+        voteWithParty("senate-at-a-glance", members)
+    }if(document.title == "Senate: Party Loyalty"){
+        voteWithParty("senate-at-a-glance", members)
+    }else if(document.title == "House Attendance"){
+        voteWithParty("house-at-a-glance", members)
+    }else if(document.title == "House of Representatives: Party Loyalty"){
+        voteWithParty("house-at-a-glance", members)
+    }
 })
+}
