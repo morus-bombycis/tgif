@@ -493,3 +493,42 @@ fetchUserData().then(data => {
     }
 })
 }
+
+// -----Search bar
+// document.getElementById("searchbar").addEventListener("change", function () { 
+//     filter()
+// });
+
+// function searchFunction() { 
+//     let input = document.getElementById('searchbar').value 
+//     input=input.toLowerCase(); 
+//     let x = document.getElementsById(members.first_name + members.last_name); 
+      
+//     for (i = 0; i < x.length; i++) {  
+//         if (!x[i].innerHTML.toLowerCase().includes(input)) { 
+//             x[i].style.display="none"; 
+//         } 
+//         else { 
+//             x[i].style.display="list-item";                  
+//         } 
+//     } 
+//     searchFunction(x)
+// } 
+
+// const list = document.getElementById('house-data');
+// function setList(group) {
+//     clearList();
+//     for (const person of group) {
+//         const item = document.createElement
+//     }
+// }
+
+// function clearList() {
+
+// }
+// const searchInput = document.getElementById('search');
+
+// searchInput.addEventListener('input', () => {
+
+// })
+
